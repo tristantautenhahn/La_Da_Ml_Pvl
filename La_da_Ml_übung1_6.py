@@ -10,15 +10,25 @@ def design_matrix_quadratic(x):
     return np.column_stack((x**2, x, np.ones_like(x)))
 
 def design_beliebige_polynom_matrix(x, p): # p = polynomgrad 
-    return np.column_stack((x**p, np.ones_like(x))) # rechnet alles hoch p und fügt eine spalte mit 1 hinzu --> 
+    return np.column_stack((x**p, np.ones_like(x))) # rechnet alles hoch p und fügt eine spalte mit 1 hinzu --> design Matrix 
+
+
+def regression_normalgleichung(x, y, p): # x muss nicht übergeben werden, da die funktion design_poly... sich darum kümmert 
+    b = y.T # transponiert y 
+    lsg = np.array()
+    lsg = np.linalg.inv(ATA) @ A.T @ b 
+    return lsg
 
 
 x = np.array([1, 2, 3, 4])
 y = np.array([1.5, 2.5, 3, 4.5])
 
+lsg = regression_normalgleichung(x, y, p)
+print(f"Regressionsparameter des Polynoms {p}.grades: {lsg.shape}")
+
 #(a) 
 # A = design_matrix_linear(x)
-A = design_matrix_quadratic(x)
+A = design_beliebige_polynom_matrix(x) # Aufpassen, wenn man reg testen will muss hier design_belibige_polynom(x) stehen !!
 print(f"Dim(A) = {A.shape}\nA = \n{A}")
 
 #(b)
