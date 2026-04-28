@@ -1,11 +1,16 @@
 import numpy as np 
 from matplotlib import pyplot as plt
 
+p = 2 # polynomgrad
+
 def design_matrix_linear(x):
     return np.column_stack((x, np.ones_like(x)))
 
 def design_matrix_quadratic(x):
     return np.column_stack((x**2, x, np.ones_like(x)))
+
+def design_beliebige_polynom_matrix(x, p): # p = polynomgrad 
+    return np.column_stack((x**p, np.ones_like(x))) # rechnet alles hoch p und fügt eine spalte mit 1 hinzu --> 
 
 
 x = np.array([1, 2, 3, 4])
