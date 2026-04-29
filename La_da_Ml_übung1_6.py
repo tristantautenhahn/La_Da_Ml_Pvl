@@ -1,7 +1,7 @@
 import numpy as np 
 from matplotlib import pyplot as plt
 
-p = 2 # polynomgrad
+p = 4 # polynomgrad
 
 def design_matrix_linear(x):
     return np.column_stack((x, np.ones_like(x)))
@@ -10,7 +10,7 @@ def design_matrix_quadratic(x):
     return np.column_stack((x**2, x, np.ones_like(x)))
 
 def design_beliebige_polynom_matrix(x, p): # p = polynomgrad 
-    return np.column_stack((x**p, np.ones_like(x))) # rechnet alles hoch p und fügt eine spalte mit 1 hinzu --> design Matrix 
+    return np.column_stack((x**p, x**(p-1), x**(p-2), x**(p-3), np.ones_like(x))) # Achtung Hartcodiert !!!! 
 
 x = np.array([1, 2, 3, 4])
 y = np.array([1.5, 2.5, 3, 4.5])
@@ -39,14 +39,14 @@ def regression_normalgleichung(x, y, p): # x muss nicht übergeben werden, da di
 
 
 lsg = regression_normalgleichung(x, y, p)
-print(f"Regressionsparameter des Polynoms {p}.grades: {lsg.shape}\n{lsg}")
+print(f"Regressionsparameter des Polynoms {p}.grades: \n{lsg}")
 print("Test")
 #(c) 
 sol = np.linalg.inv(ATA) @ ATy
 print(f"[m n] = {sol}")
 
 #(e)
-sol_poly = np.polyfit(x, y, deg=2)
+sol_poly = np.polyfit(x, y, deg=4)
 sol_lest_squares = np.linalg.lstsq(A, y)
 print(f"Sol_Polyfit [m n] = {sol_poly}") # zum testen ob p = 2 und polyfit die gleichen Werte ausgeben 
 print(f"[m n] = {sol_lest_squares[0]}") # [0] da np.linalg.lstsq() mehrere Werte zurückgibt, wir interessieren uns nur für die Koeffizienten
