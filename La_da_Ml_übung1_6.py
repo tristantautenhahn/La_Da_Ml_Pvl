@@ -36,16 +36,21 @@ def regression_normalgleichung(x, y, p): # x muss nicht übergeben werden, da di
     lsg = np.array([])
     A = design_beliebige_polynom_matrix(x, p)
     ATA = A.T @ A
-    print(f"Dim(ATA) = {ATA.shape}\nATA = \n{ATA}")
+    print(f"ATA = \n{ATA}")
     ATy = A.T @ y 
-    print(f"Dim(ATy) = {ATy.shape}\nATy = \n{ATy}")
+    print(f"ATy = \n{ATy}")
     lsg = np.linalg.inv(ATA) @ A.T @ b
+    # Überprüfung der Ortogonalitätsbedingung (mit 10^-6 als Toleranz)
+    fehler = A.T @ (A @ lsg - y)
+    if np.any(fehler > 1e-6): # weil das ein Vektor ist und alle einträge kleiner sein müssen 
+        print(f"Warnung: Die Ortogonalitätsbedingung ist nicht erfüllt. \n Fehler: {fehler}")
+    else :
+        print(f"Die Ortogonalitätsbedingung ist erfüllt. \n Fehler: {fehler}")
     return lsg
 
 
 lsg = regression_normalgleichung(x, y, p)
 print(f"Regressionsparameter des Polynoms {p}.grades: \n{lsg}")
-print("Test")
 #(c) 
 sol = np.linalg.inv(ATA) @ ATy
 print(f"[m n] = {sol}")
