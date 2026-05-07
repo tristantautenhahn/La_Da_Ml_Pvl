@@ -30,7 +30,7 @@ ATy = A.T @ y # A transponiert mal y (vektor y)
 print(f"Dim(ATA) = {ATA.shape}\nATA = \n{ATA}")
 print(f"Dim(ATy) = {ATy.shape}\nATy = \n{ATy}") '''
 
-# spagetticode unbedingt später beheben!!! 
+
 def regression_normalgleichung(x, y, p): 
     lsg = np.array([])
     A = design_beliebige_polynom_matrix(x, p)
